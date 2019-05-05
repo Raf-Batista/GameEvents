@@ -4,5 +4,6 @@ class User < ApplicationRecord
   validates :password, :length => { :in => 5..20 }
   has_many :owners
   has_many :games, :through => :owners
+  has_many :events
   has_secure_password
 end
