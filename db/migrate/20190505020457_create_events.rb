@@ -3,8 +3,7 @@ class CreateEvents < ActiveRecord::Migration[5.2]
     create_table :events do |t|
       t.string :title
       t.string :description
-      t.integer :user_id
-
+      t.integer :game_id
       t.timestamps
     end
   end
