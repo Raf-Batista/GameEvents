@@ -8,6 +8,6 @@ RSpec.describe 'User signup', type: :feature do
         fill_in 'user_password', :with => 'test123'
         click_button 'Create Account'
         expect(current_path).to eq('/users/1')
-        expect(page).to have_content("welcome test")
+        expect(page).to have_content("Welcome, test")
     end 
 end 
