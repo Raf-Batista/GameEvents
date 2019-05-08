@@ -43,6 +43,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'rails-controller-testing'
   gem 'pry'
+  gem 'rack_session_access'
 end
 
 group :development do
