@@ -35,4 +35,27 @@ RSpec.describe 'User signup', type: :feature do
         click_button 'Log In'
         expect(page.get_rack_session_key('user_id')).to_not eq(nil)
     end 
+
+    context 'When logged in' do
+        it 'redirects to show page when user visits home' do
+            user = User.create(:username => 'test', :password => 'test123')
+            page.set_rack_session(:user_id => user.id)
+            visit root_path 
+            expect(current_path).to eq(user_path(user))
+        end
+
+        it 'redirects to show page when user visits login' do
+            user = User.create(:username => 'test', :password => 'test123')
+            page.set_rack_session(:user_id => user.id)
+            visit login_path 
+            expect(current_path).to eq(user_path(user))
+        end
+
+        it 'redirects to show page when user visits signup' do
+            user = User.create(:username => 'test', :password => 'test123')
+            page.set_rack_session(:user_id => user.id)
+            visit signup_path 
+            expect(current_path).to eq(user_path(user))
+        end
+    end 
 end 
