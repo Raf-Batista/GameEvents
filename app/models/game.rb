@@ -4,7 +4,6 @@ class Game < ApplicationRecord
   has_many :users, :through => :owners
   has_many :game_events
   has_many :events, :through => :game_events
-  has_many :game_genres
-  has_many :genres, :through => :game_genres
+  belongs_to :genre
   has_many :events
 end
