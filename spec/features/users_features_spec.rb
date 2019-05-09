@@ -63,5 +63,11 @@ RSpec.describe 'User signup', type: :feature do
             visit logout_path 
             expect(page.get_rack_session['user_id']).to eq(nil)
         end
+
+        it 'redirects to home page after logging out' do
+            page.set_rack_session(:user_id => 1)
+            visit logout_path 
+            expect(page.current_path).to eq(root_path)
+        end
     end 
 end 
