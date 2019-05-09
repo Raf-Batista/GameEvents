@@ -69,6 +69,33 @@ RSpec.describe 'User signup', type: :feature do
             visit logout_path 
             expect(page.current_path).to eq(root_path)
         end
+
+        it 'can visit a games show page' 
+
+        it 'can visit games index page'
+
+        it 'can visit a games show page owned by a user' 
+
+        it 'can visit games index page owned by a user'
+
+        it 'can create an game owned by a user' do
+            visit new_user_game_path 
+            fill_in 'title', :with => 'Street Fighter 2'
+            fill_in 'publisher', :with => 'Capcom'
+            fill_in 'release_date', :with => '1992'
+            check 'Fighting'
+            click 'Create Game'
+            expect(page.content).to have_content(/Street Fighter 2 Capcom 1992 Fighting/)
+        end 
+
+        it 'can visit an events show page' 
+
+        it 'can visit events index page'
+
+        it 'can visit an events show page owned by a user' 
+
+        it 'can visit events index page owned by a user'
+
     end 
 
     context 'when logged out' do  
@@ -83,7 +110,9 @@ RSpec.describe 'User signup', type: :feature do
             expect(page.current_path).to eq(login_path)
         end 
 
-        it 'can not view users index page' 
+        it 'can not view games show page'
+
+        it 'can not view games index page' 
 
         it 'can not view event show page'
 
