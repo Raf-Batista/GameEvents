@@ -57,5 +57,11 @@ RSpec.describe 'User signup', type: :feature do
             visit signup_path 
             expect(current_path).to eq(user_path(user))
         end
+
+        it 'can log out' do
+            page.set_rack_session(:user_id => 1)
+            visit logout_path 
+            expect(page.get_rack_session['user_id']).to eq(nil)
+        end
     end 
 end 
