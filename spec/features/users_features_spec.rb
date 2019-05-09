@@ -70,4 +70,29 @@ RSpec.describe 'User signup', type: :feature do
             expect(page.current_path).to eq(root_path)
         end
     end 
+
+    context 'when logged out' do  
+        it 'redirects to home page when trying to log out' do
+            visit logout_path 
+            expect(page.current_path).to eq(root_path)
+        end 
+
+        it 'can not view a users show page' do
+            User.create(:username => "test", :password => "test123")
+            visit '/users/1' 
+            expect(page.current_path).to eq(login_path)
+        end 
+
+        it 'can not view users index page' 
+
+        it 'can not view event show page'
+
+        it 'can not view event index page'
+
+        it 'can not create a new event' 
+
+        it 'can not edit an existing event' 
+
+
+    end 
 end 
