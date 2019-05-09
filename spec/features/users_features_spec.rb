@@ -21,8 +21,8 @@ RSpec.describe 'User signup', type: :feature do
     it 'successfully logs in' do
         User.create(:username => 'test', :password => 'test123')
         visit '/login' 
-        fill_in 'user_username', :with => 'test'
-        fill_in 'user_password', :with => 'test123'
+        fill_in 'username', :with => 'test'
+        fill_in 'password', :with => 'test123'
         click_button 'Log In'
         expect(page).to have_content("Welcome, test")
     end 
@@ -30,8 +30,8 @@ RSpec.describe 'User signup', type: :feature do
     it 'successfully adds session hash on login' do
         User.create(:username => 'test', :password => 'test123')
         visit '/login' 
-        fill_in 'user_username', :with => 'test'
-        fill_in 'user_password', :with => 'test123'
+        fill_in 'username', :with => 'test'
+        fill_in 'password', :with => 'test123'
         click_button 'Log In'
         expect(page.get_rack_session_key('user_id')).to_not eq(nil)
     end 
