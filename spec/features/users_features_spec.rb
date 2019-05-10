@@ -6,7 +6,6 @@ RSpec.describe 'User signup', type: :feature do
         fill_in 'user_username', :with => 'test'
         fill_in 'user_password', :with => 'test123'
         click_button 'Create Account'
-        expect(current_path).to eq('/users/1')
         expect(page).to have_content("Welcome, test")
     end 
 
@@ -38,11 +37,14 @@ RSpec.describe 'User signup', type: :feature do
 
     context 'When logged in' do
 
-        before(:example) {page.set_rack_session(:user_id => 1)}
+        before(:example) do 
+            User.create(:username => 'test', :password => 'test123')
+            page.set_rack_session(:user_id => 1)
+        end
 
         it 'redirects to show page when user visits home' do
             visit root_path 
-            expect(current_path).to eq('/users/1'))
+            expect(current_path).to eq('/users/1')
         end
 
         it 'redirects to show page when user visits login' do
