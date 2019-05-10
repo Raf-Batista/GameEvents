@@ -70,13 +70,18 @@ RSpec.describe 'User signup', type: :feature do
             expect(page.current_path).to eq(root_path)
         end
 
+
+        it 'can visit games index page' do
+            page.set_rack_session(:user_id => 1)
+            visit games_path 
+            expect(page.current_path).to eq(games_path)
+        end 
+
         it 'can visit a games show page' 
-
-        it 'can visit games index page'
-
-        it 'can visit a games show page owned by a user' 
-
+ 
         it 'can visit games index page owned by a user'
+
+        it 'can visit a games show page owned by a user'
 
         it 'can create an game owned by a user' do
             visit new_user_game_path 
@@ -88,40 +93,56 @@ RSpec.describe 'User signup', type: :feature do
             expect(page.content).to have_content(/Street Fighter 2 Capcom 1992 Fighting/)
         end 
 
-        it 'can visit an events show page' 
+        it 'can visit events index page' 
 
-        it 'can visit events index page'
+        it 'can visit an events show page'
 
-        it 'can visit an events show page owned by a user' 
+        it 'can visit events index page owned by a user' 
 
-        it 'can visit events index page owned by a user'
+        it 'can visit an events show page owned by a user'
 
     end 
 
     context 'when logged out' do  
+        before(:example) { page.set_rack_session(:user_id => nil) }
         it 'redirects to home page when trying to log out' do
             visit logout_path 
             expect(page.current_path).to eq(root_path)
         end 
 
         it 'can not view a users show page' do
-            User.create(:username => "test", :password => "test123")
             visit '/users/1' 
             expect(page.current_path).to eq(login_path)
         end 
 
-        it 'can not view games show page'
+        it 'can not view games show page' do
+            visit 'games/1'
+            expect(page.current_path).to eq(login_path)
+        end 
 
-        it 'can not view games index page' 
+        it 'can not view games index page' do
+            visit games_path 
+            expect(page.current_path).to eq(login_path)
+        end
 
-        it 'can not view event show page'
+        it 'can not view event show page' do
+            visit 'events/1'
+            expect(page.current_path).to eq(login_path)
+        end 
 
-        it 'can not view event index page'
+        it 'can not view event index page' do
+            visit events_path
+            expect(page.current_path).to eq(login_path)
+        end 
 
-        it 'can not create a new event' 
+        it 'can not create a new event' do
+            visit 'events/new'
+            expect(page.current_path).to eq(login_path)
+        end 
 
-        it 'can not edit an existing event' 
-
-
+        it 'can not edit an existing event' do
+            visit 'games/1/edit'
+            expect(page.current_path).to eq(login_path)
+        end 
     end 
 end 
