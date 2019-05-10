@@ -5,5 +5,4 @@ class Game < ApplicationRecord
   has_many :game_events
   has_many :events, :through => :game_events
   belongs_to :genre
-  has_many :events
 end
