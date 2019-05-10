@@ -37,51 +37,53 @@ RSpec.describe 'User signup', type: :feature do
     end 
 
     context 'When logged in' do
+
+        before(:example) {page.set_rack_session(:user_id => 1)}
+
         it 'redirects to show page when user visits home' do
-            user = User.create(:username => 'test', :password => 'test123')
-            page.set_rack_session(:user_id => user.id)
             visit root_path 
-            expect(current_path).to eq(user_path(user))
+            expect(current_path).to eq('/users/1'))
         end
 
         it 'redirects to show page when user visits login' do
-            user = User.create(:username => 'test', :password => 'test123')
-            page.set_rack_session(:user_id => user.id)
             visit login_path 
-            expect(current_path).to eq(user_path(user))
+            expect(current_path).to eq('/users/1')
         end
 
         it 'redirects to show page when user visits signup' do
-            user = User.create(:username => 'test', :password => 'test123')
-            page.set_rack_session(:user_id => user.id)
             visit signup_path 
-            expect(current_path).to eq(user_path(user))
+            expect(current_path).to eq('/users/1')
         end
 
         it 'can log out' do
-            page.set_rack_session(:user_id => 1)
             visit logout_path 
             expect(page.get_rack_session['user_id']).to eq(nil)
         end
 
         it 'redirects to home page after logging out' do
-            page.set_rack_session(:user_id => 1)
             visit logout_path 
             expect(page.current_path).to eq(root_path)
         end
 
-
         it 'can visit games index page' do
-            page.set_rack_session(:user_id => 1)
             visit games_path 
             expect(page.current_path).to eq(games_path)
         end 
 
-        it 'can visit a games show page' 
+        it 'can visit a games show page' do
+            visit '/games/1'
+            expect(page.current_path).to eq('/games/1')
+        end 
  
-        it 'can visit games index page owned by a user'
+        it 'can visit games index page owned by a user' do
+            visit '/users/1/games'
+            expect(page.current_path).to eq('/users/1/games')
+        end
 
-        it 'can visit a games show page owned by a user'
+        it 'can visit a games show page owned by a user' do
+            visit '/users/1/games/1'
+            expect(page.current_path).to eq('/users/1/games/1')
+        end 
 
         it 'can create an game owned by a user' do
             visit new_user_game_path 
